@@ -1,1 +1,0 @@
-price = df.read
