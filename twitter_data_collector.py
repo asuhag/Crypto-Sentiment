@@ -21,7 +21,7 @@ api=tweepy.API(auth)
 
 result = []
 
-for tweet in tweepy.Cursor(api.search,q='%23Bitcoin').items(500):
+for tweet in tweepy.Cursor(api.search,q='%23cryptocurrency',since='2018-05-23` 11:00:00').items(200):
     result.append(tweet)
     
 print(len(result))
@@ -34,19 +34,15 @@ def todf(tweets):
     dataset['tweet id']= [tweet.id for tweet in tweets]
     dataset['tweet_text'] = [tweet.text for tweet in tweets]
     dataset['Time'] = [tweet.created_at for tweet in tweets]
-    
+    dataset['userTimezone'] = [tweet.user.time_zone for tweet 
+    in tweets]
     return dataset
 
 dataset = todf(result)
 
-print(dataset.head())
+
 print(dataset.info())
+print(dataset['Time'])
 
-dataset.to_csv('bitcoin data.csv')
+dataset.to_csv('Tweets_May23_timecontrolled.csv')
 
-#for para in dir(public_tweet[0]):
- #   print(para,eval('public_tweet[0].'+para))
-
-#for tweet in public_tweet:  # Creates a string obj
- #   print(tweet.text) 
-  #  print(TextBlob(tweet.text).polarity)
